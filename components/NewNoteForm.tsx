@@ -49,7 +49,7 @@ export default async function NewNoteForm() {
                     cols={30}
                     rows={10}
                     placeholder="Enter your note content here..."
-                    className="w-full min-w-full max-w-full max-h-40 min-h-8 border border-gray-300 py-2 px-4 rounded-lg shadow bg-gray-50"
+                    className="w-full min-w-full max-w-full max-h-40 min-h-16 border border-gray-300 py-2 px-4 rounded-lg shadow bg-gray-50"
                 ></textarea>
             </div>
             <div>
