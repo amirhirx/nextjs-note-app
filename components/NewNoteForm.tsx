@@ -4,7 +4,7 @@ export default async function NewNoteForm() {
     const category = await getCategories()
 
     return (
-        <form className="p-4 space-y-4 border border-gray-300 rounded-lg bg-white shadow-lg">
+        <form className="p-4 space-y-4 border border-gray-300 rounded-lg bg-white shadow-lg md:sticky md:top-5 h-max">
             <h2 className="text-xl font-extrabold">New Note</h2>
             <div className="flex flex-col gap-2">
                 <label htmlFor="new-note-title" className="text-lg font-bold">
