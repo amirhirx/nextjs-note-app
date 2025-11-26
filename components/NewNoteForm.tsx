@@ -1,6 +1,11 @@
+"use client"
 import { ICategory } from "@/types/category"
+import { INote } from "@/types/Note"
+import { useState } from "react"
 
 export default function NewNoteForm({ category }: { category: ICategory[] }) {
+    const [newNote, setNewNote] = useState<INote>({} as INote)
+
     return (
         <form className="p-4 space-y-4 border border-gray-300 rounded-lg bg-white shadow-lg md:sticky md:top-5 h-max">
             <h2 className="text-xl font-extrabold">New Note</h2>
@@ -13,6 +18,12 @@ export default function NewNoteForm({ category }: { category: ICategory[] }) {
                     id="new-note-title"
                     placeholder="Enter your note title here..."
                     className=" border border-gray-300 py-2 px-4 rounded-lg shadow bg-gray-50"
+                    value={newNote.title}
+                    onChange={(event) => {
+                        setNewNote((prev) => {
+                            return { ...prev, title: event.target.value }
+                        })
+                    }}
                 />
             </div>
             <div className="flex flex-col gap-2">
@@ -26,6 +37,12 @@ export default function NewNoteForm({ category }: { category: ICategory[] }) {
                     name="new-note-category"
                     id="new-note-category"
                     className=" border border-gray-300 py-2 px-4 rounded-lg shadow bg-gray-50"
+                    value={newNote.category}
+                    onChange={(event) => {
+                        setNewNote((prev) => {
+                            return { ...prev, category: event.target.value }
+                        })
+                    }}
                 >
                     <option value={""}>Without Category</option>
                     {category.map(({ id, name }) => {
@@ -48,10 +65,34 @@ export default function NewNoteForm({ category }: { category: ICategory[] }) {
                     rows={10}
                     placeholder="Enter your note content here..."
                     className="w-full min-w-full max-w-full max-h-40 min-h-16 border border-gray-300 py-2 px-4 rounded-lg shadow bg-gray-50"
+                    value={newNote.content}
+                    onChange={(event) => {
+                        setNewNote((prev) => {
+                            return { ...prev, content: event.target.value }
+                        })
+                    }}
                 ></textarea>
             </div>
             <div>
-                <button className="bg-black text-white py-2 p-4 rounded-lg w-full">
+                <button
+                    onClick={(event) => {
+                        event.preventDefault()
+                        const now = new Date()
+                        setNewNote({
+                            ...newNote,
+                            id: String(Math.floor(Math.random() * 1000)),
+                            createdAt: now.toISOString(),
+                        })
+                        if (newNote.title) {
+                            alert("Note added")
+                            console.log(newNote)
+                        } else {
+                            alert("Note need title")
+                            console.log(newNote)
+                        }
+                    }}
+                    className="bg-black text-white py-2 p-4 rounded-lg w-full"
+                >
                     Add
                 </button>
             </div>
