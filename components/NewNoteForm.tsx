@@ -1,8 +1,6 @@
-import { getCategories } from "@/services/getCategories"
+import { ICategory } from "@/types/category"
 
-export default async function NewNoteForm() {
-    const category = await getCategories()
-
+export default function NewNoteForm({ category }: { category: ICategory[] }) {
     return (
         <form className="p-4 space-y-4 border border-gray-300 rounded-lg bg-white shadow-lg md:sticky md:top-5 h-max">
             <h2 className="text-xl font-extrabold">New Note</h2>
