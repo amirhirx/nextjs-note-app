@@ -1,4 +1,5 @@
 "use client"
+import { postNote } from "@/services/postNote"
 import { ICategory } from "@/types/category"
 import { INote } from "@/types/Note"
 import { useState } from "react"
@@ -85,10 +86,9 @@ export default function NewNoteForm({ category }: { category: ICategory[] }) {
                         })
                         if (newNote.title) {
                             alert("Note added")
-                            console.log(newNote)
+                            postNote(newNote)
                         } else {
                             alert("Note need title")
-                            console.log(newNote)
                         }
                     }}
                     className="bg-black text-white py-2 p-4 rounded-lg w-full"
