@@ -2,10 +2,12 @@
 import { postNote } from "@/services/postNote"
 import { ICategory } from "@/types/category"
 import { INote } from "@/types/Note"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function NewNoteForm({ category }: { category: ICategory[] }) {
     const [newNote, setNewNote] = useState<INote>({} as INote)
+    const router = useRouter()
 
     return (
         <form className="p-4 space-y-4 border border-gray-300 rounded-lg bg-white shadow-lg md:sticky md:top-5 h-max">
@@ -76,7 +78,7 @@ export default function NewNoteForm({ category }: { category: ICategory[] }) {
             </div>
             <div>
                 <button
-                    onClick={(event) => {
+                    onClick={async (event) => {
                         event.preventDefault()
                         const now = new Date()
                         setNewNote({
@@ -85,8 +87,10 @@ export default function NewNoteForm({ category }: { category: ICategory[] }) {
                             createdAt: now.toISOString(),
                         })
                         if (newNote.title) {
+                            postNote(newNote).then(() => {
+                                router.refresh()
+                            })
                             alert("Note added")
-                            postNote(newNote)
                         } else {
                             alert("Note need title")
                         }
